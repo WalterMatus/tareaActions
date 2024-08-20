@@ -1,0 +1,33 @@
+name: stats
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v4
+
+      - name: setup python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12' 
+
+      - name: run script
+        run: python ./roadmap/stats.py
+        
+      - name: comming and push changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: update stats
+          ommit_user_name: walter matus [github actions]
+          commit_user_email: wmatus2104@gmail.com
+          commit_author: walter
+        
